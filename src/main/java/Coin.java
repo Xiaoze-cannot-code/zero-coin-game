@@ -1,6 +1,7 @@
 import zero.Color;
 import zero.GameApp;
 
+/** A coin remembers whether it was collected; Main owns the score. */
 public class Coin {
     private final double x;
     private final double y;
@@ -13,7 +14,9 @@ public class Coin {
     }
 
     public boolean isCollected() { return collected; }
+
     public boolean touches(Player player) { return player.touches(x, y, size); }
+
     public void collect() { collected = true; }
 
     public void draw(GameApp app) {

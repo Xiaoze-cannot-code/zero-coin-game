@@ -1,11 +1,12 @@
 import zero.Color;
 import zero.GameApp;
 
+/** An ordinary object: coordinates change only when update is called. */
 public class Player {
     private double x;
     private double y;
-    private final double size = 40;
-    private final double speed = 90;
+    private final double size = 24;
+    private final double speed = 180;
 
     public Player(double startX, double startY) {
         x = startX;
@@ -16,12 +17,15 @@ public class Player {
                        double canvasWidth, double canvasHeight) {
         x += horizontal * speed * seconds;
         y += vertical * speed * seconds;
+        // x and y locate the top-left corner; keep the whole square visible.
         x = Math.max(0, Math.min(x, canvasWidth - size));
         y = Math.max(0, Math.min(y, canvasHeight - size));
     }
-    public boolean touches(double otherX, double otherY, double otherSize) {
-        return x + size >= otherX && x <= otherX + otherSize
-                && y + size >= otherY && y <= otherY + otherSize;
+
+    public boolean touches(double coinX, double coinY, double coinSize) {
+        // Squares touch when both their horizontal and vertical ranges meet.
+        return x + size >= coinX && x <= coinX + coinSize
+                && y + size >= coinY && y <= coinY + coinSize;
     }
 
     public void draw(GameApp app) {
